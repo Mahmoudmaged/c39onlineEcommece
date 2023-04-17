@@ -12,7 +12,6 @@ const router = Router({ caseSensitive: true })
 router.use('/:categoryId/subcategory', subcategoryRouter)
 
 router.get("/",
-    auth(Object.values(roles)),
     categoryController.getCategory
 )
 

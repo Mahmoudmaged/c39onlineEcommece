@@ -45,6 +45,7 @@ const initApp = (app, express) => {
     //     console.log("Origin Work");
     //     next();
     // });
+
     if (process.env.MOOD == "DEV") {
         app.use(morgan("dev"))
     } else {
@@ -53,6 +54,9 @@ const initApp = (app, express) => {
     //convert Buffer Data
     app.use(express.json({}))
     //Setup API Routing 
+    app.get("/", (req, res, next) => {
+        return res.status(200).json({ message: "Welcome to E-commerce APP C39  online" })
+    })
     app.use(`/auth`, authRouter)
     app.use(`/user`, userRouter)
     app.use(`/product`, productRouter)
@@ -65,7 +69,7 @@ const initApp = (app, express) => {
     app.use(`/brand`, branRouter)
 
     app.all('*', (req, res, next) => {
-        res.send("In-valid Routing Plz check url  or  method")
+        res.status(404).send("In-valid Routing Plz check url or method")
     })
 
     app.use(globalErrorHandling)

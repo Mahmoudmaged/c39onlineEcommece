@@ -35,12 +35,14 @@ class ApiFeatures {
     }
 
     search() {
-        this.mongooseQuery.find({
-            $or: [
-                { name: { $regex: this.queryData.search, $options: 'i' } },
-                { description: { $regex: this.queryData.search, $options: 'i' } }
-            ]
-        })
+        if (this.queryData.search) {
+            this.mongooseQuery.find({
+                $or: [
+                    { name: { $regex: this.queryData.search, $options: 'i' } },
+                    { description: { $regex: this.queryData.search, $options: 'i' } }
+                ]
+            })
+        }
         return this
     }
 

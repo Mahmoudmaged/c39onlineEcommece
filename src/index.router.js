@@ -52,7 +52,15 @@ const initApp = (app, express) => {
         app.use(morgan("combined"))
     }
     //convert Buffer Data
-    app.use(express.json({}))
+
+    app.use((req, res, next) => {
+        console.log({ url: req.originalUrl });
+        if (req.originalUrl == '/order/webhook') {
+            next()
+        } else {
+            express.json({})(req, res, next)
+        }
+    })
     //Setup API Routing 
     app.get("/", (req, res, next) => {
         return res.status(200).json({ message: "Welcome to E-commerce APP C39  online" })

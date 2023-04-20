@@ -1,5 +1,6 @@
 import * as orderController from './controller/order.js'
 import * as validators from './order.validation.js'
+import express from 'express'
 import { validation } from '../../middleware/validation.js';
 
 import { endpoint } from './order.endPoint.js'
@@ -26,5 +27,8 @@ router.patch('/:orderId/admin',
     orderController.updateOrderStatusByAdmin)
 
 
+
+
+router.post('/webhook', express.raw({ type: 'application/json' }), orderController.webhook);
 
 export default router

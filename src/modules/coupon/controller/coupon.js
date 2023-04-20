@@ -19,7 +19,7 @@ export const createCoupon = asyncHandler(async (req, res, next) => {
         req.body.image = { secure_url, public_id }
     }
     req.body.createdBy = req.user._id
-    req.body.expireDate = new Date(req.body.expireDate)
+    req.body.expire = new Date(req.body.expire)
     const coupon = await couponModel.create(req.body)
     return res.status(201).json({ message: 'Done', coupon })
 })
@@ -44,8 +44,8 @@ export const updateCoupon = asyncHandler(async (req, res, next) => {
     if (req.body.amount) {
         coupon.amount = req.body.amount;
     }
-    if (req.body.expireDate) {
-        coupon.expireDate = new Date(req.body.expireDate)
+    if (req.body.expire) {
+        coupon.expire = new Date(req.body.expire)
     }
 
     if (req.file) {
